@@ -1,0 +1,136 @@
+{
+  "name": "N8N Prompt",
+  "scopeName": "text.xml.n8n",
+  "fileTypes": [".prompt.xml", ".n8n"],
+  "patterns": [
+    {
+      "include": "#xml-declaration"
+    },
+    {
+      "include": "#doctype-declaration"
+    },
+    {
+      "include": "#xml-comment"
+    },
+    {
+      "include": "#xml-tag"
+    },
+    {
+      "include": "#xml-entity"
+    },
+    {
+      "include": "#xml-escape"
+    },
+    {
+      "include": "#xml-string"
+    },
+    {
+      "include": "#n8n-variable"
+    }
+  ],
+  "repository": {
+    "xml-declaration": {
+      "match": "<?xml\\s+version\\s*=\\s*['\"][^'\"]+['\"]\\s+encoding\\s*=\\s*['\"][^'\"]+['\"]\\s*>",
+      "name": "meta.preprocessor.xml"
+    },
+    "doctype-declaration": {
+      "match": "<!DOCTYPE\\s+[^>]+>",
+      "name": "meta.preprocessor.xml"
+    },
+    "xml-comment": {
+      "match": "<!--[^-]*(?:-[^-]+)*-->",
+      "name": "comment.block.xml"
+    },
+    "xml-tag": {
+      "patterns": [
+        {
+          "begin": "<",
+          "end": ">",
+          "beginCaptures": {
+            "0": { "name": "punctuation.definition.tag.xml" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.tag.xml" }
+          },
+          "patterns": [
+            {
+              "match": "([A-Za-z0-9_]+)(?=\\s|>)",
+              "name": "entity.name.tag.localname.xml",
+              "captures": {
+                "1": {
+                  "name": "entity.name.tag.localname.xml"
+                }
+              }
+            },
+            {
+              "match": "([A-Za-z0-9_]+)\\s*=",
+              "name": "entity.other.attribute-name.xml",
+              "captures": {
+                "1": {
+                  "name": "entity.other.attribute-name.localname.xml"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "begin": "</",
+          "end": ">",
+          "beginCaptures": {
+            "0": { "name": "punctuation.definition.tag.xml" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.tag.xml" }
+          },
+          "patterns": [
+            {
+              "match": "([A-Za-z0-9_]+)",
+              "name": "entity.name.tag.localname.xml",
+              "captures": {
+                "1": {
+                  "name": "entity.name.tag.localname.xml"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "xml-entity": {
+      "match": "&[A-Za-z0-9_]+;",
+      "name": "constant.character.entity.xml"
+    },
+    "xml-escape": {
+      "match": "&[#][0-9]+;",
+      "name": "constant.character.escape.xml"
+    },
+    "xml-string": {
+      "patterns": [
+        {
+          "begin": "\"",
+          "end": "\"",
+          "name": "string.quoted.double.xml",
+          "patterns": [
+            {
+              "include": "#n8n-variable"
+            }
+          ]
+        },
+        {
+          "begin": "'",
+          "end": "'",
+          "name": "string.quoted.single.xml",
+          "patterns": [
+            {
+              "include": "#n8n-variable"
+            }
+          ]
+        }
+      ]
+    },
+    "n8n-variable": {
+      "match": "{{[^}]+}}",
+      "name": "variable.other.n8n"
+    }
+  }
+} 

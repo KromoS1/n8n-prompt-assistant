@@ -1,0 +1,546 @@
+{
+  "Agent Template": {
+    "prefix": "agent",
+    "body": [
+      "<Agentinstructions>",
+      "\t<Role>",
+      "\t\t<Name>$1</Name>",
+      "\t\t<Description>$2</Description>",
+      "\t\t<currentDate>{{$now}}</currentDate>",
+      "\t</Role>",
+      "\t<Goal>",
+      "\t\t<Primary>$3</Primary>",
+      "\t</Goal>",
+      "\t<Instructions>",
+      "\t\t<Instruction>$4</Instruction>",
+      "\t</Instructions>",
+      "</Agentinstructions>"
+    ],
+    "description": "Базовый шаблон агента с секциями Role, Goal и Instructions"
+  },
+  "Full Agent Template": {
+    "prefix": "agentfull",
+    "body": [
+      "<Agentinstructions>",
+      "\t<Role>",
+      "\t\t<Name>$1</Name>",
+      "\t\t<Description>$2</Description>",
+      "\t\t<currentDate>{{$now}}</currentDate>",
+      "\t</Role>",
+      "\t<Goal>",
+      "\t\t<Primary>$3</Primary>",
+      "\t\t<Secondary>$4</Secondary>",
+      "\t</Goal>",
+      "\t<Instructions>",
+      "\t\t<Instruction>$5</Instruction>",
+      "\t\t<Instruction>$6</Instruction>",
+      "\t\t<Instruction>$7</Instruction>",
+      "\t\t<Instruction>$8</Instruction>",
+      "\t</Instructions>",
+      "\t<Tools>",
+      "\t\t<Tool>$9</Tool>",
+      "\t</Tools>",
+      "\t<Constraints>",
+      "\t\t<Constraint>$10</Constraint>",
+      "\t</Constraints>",
+      "</Agentinstructions>"
+    ],
+    "description": "Полный шаблон агента со всеми возможными секциями"
+  },
+  "XML Declaration": {
+    "prefix": "xml",
+    "body": [
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+    ],
+    "description": "XML декларация (если нужна)"
+  },
+  "Agentinstructions Root": {
+    "prefix": "agentinstructions",
+    "body": [
+      "<Agentinstructions>",
+      "\t$1",
+      "</Agentinstructions>"
+    ],
+    "description": "Корневой элемент для инструкций агента"
+  },
+  "Role Section": {
+    "prefix": "role",
+    "body": [
+      "<Role>",
+      "\t<Name>$1</Name>",
+      "\t<Description>$2</Description>",
+      "\t<currentDate>{{$now}}</currentDate>",
+      "\t$3",
+      "</Role>"
+    ],
+    "description": "Секция роли агента"
+  },
+  "Name Section": {
+    "prefix": "name",
+    "body": [
+      "<Name>$1</Name>"
+    ],
+    "description": "Имя агента"
+  },
+  "Description Section": {
+    "prefix": "description",
+    "body": [
+      "<Description>$1</Description>"
+    ],
+    "description": "Описание агента"
+  },
+  "Current Date": {
+    "prefix": "currentdate",
+    "body": [
+      "<currentDate></currentDate>"
+    ],
+    "description": "Текущая дата с переменной n8n"
+  },
+  "Goal Section": {
+    "prefix": "goal",
+    "body": [
+      "<Goal>",
+      "\t<Primary>$1</Primary>",
+      "\t$2",
+      "</Goal>"
+    ],
+    "description": "Секция целей агента"
+  },
+  "Primary Goal": {
+    "prefix": "primary",
+    "body": [
+      "<Primary>$1</Primary>"
+    ],
+    "description": "Основная цель агента"
+  },
+  "Secondary Goal": {
+    "prefix": "secondary",
+    "body": [
+      "<Secondary>$1</Secondary>"
+    ],
+    "description": "Вторичная цель агента"
+  },
+  "Instructions Section": {
+    "prefix": "instructions",
+    "body": [
+      "<Instructions>",
+      "\t<Instruction>$1</Instruction>",
+      "\t$2",
+      "</Instructions>"
+    ],
+    "description": "Секция инструкций агента"
+  },
+  "Instruction Item": {
+    "prefix": "instruction",
+    "body": [
+      "<Instruction>$1</Instruction>"
+    ],
+    "description": "Отдельная инструкция для агента"
+  },
+  "Tools Section": {
+    "prefix": "tools",
+    "body": [
+      "<Tools>",
+      "\t<Tool>$1</Tool>",
+      "\t$2",
+      "</Tools>"
+    ],
+    "description": "Секция инструментов агента"
+  },
+  "Tool Item": {
+    "prefix": "tool",
+    "body": [
+      "<Tool>$1</Tool>"
+    ],
+    "description": "Отдельный инструмент для агента"
+  },
+  "Constraints Section": {
+    "prefix": "constraints",
+    "body": [
+      "<Constraints>",
+      "\t<Constraint>$1</Constraint>",
+      "\t$2",
+      "</Constraints>"
+    ],
+    "description": "Секция ограничений агента"
+  },
+  "Constraint Item": {
+    "prefix": "constraint",
+    "body": [
+      "<Constraint>$1</Constraint>"
+    ],
+    "description": "Отдельное ограничение для агента"
+  },
+  "ExecutionContext Section": {
+    "prefix": "executioncontext",
+    "body": [
+      "<ExecutionContext>",
+      "\t<Environment>$1</Environment>",
+      "\t<Timezone>$2</Timezone>",
+      "\t<Language>$3</Language>",
+      "\t$4",
+      "</ExecutionContext>"
+    ],
+    "description": "Контекст выполнения агента"
+  },
+  "Environment Setting": {
+    "prefix": "environment",
+    "body": [
+      "<Environment>$1</Environment>"
+    ],
+    "description": "Окружение выполнения (production/staging/development)"
+  },
+  "Timezone Setting": {
+    "prefix": "timezone",
+    "body": [
+      "<Timezone>$1</Timezone>"
+    ],
+    "description": "Часовой пояс для выполнения задач"
+  },
+  "Language Setting": {
+    "prefix": "language",
+    "body": [
+      "<Language>$1</Language>"
+    ],
+    "description": "Язык для обработки задач"
+  },
+  "ErrorHandling Section": {
+    "prefix": "errorhandling",
+    "body": [
+      "<ErrorHandling>",
+      "\t<RetryStrategy>$1</RetryStrategy>",
+      "\t<MaxRetries>$2</MaxRetries>",
+      "\t<FallbackAction>$3</FallbackAction>",
+      "\t$4",
+      "</ErrorHandling>"
+    ],
+    "description": "Настройки обработки ошибок"
+  },
+  "RetryStrategy Setting": {
+    "prefix": "retrystrategy",
+    "body": [
+      "<RetryStrategy>$1</RetryStrategy>"
+    ],
+    "description": "Стратегия повторных попыток (exponential/linear/fixed)"
+  },
+  "MaxRetries Setting": {
+    "prefix": "maxretries",
+    "body": [
+      "<MaxRetries>$1</MaxRetries>"
+    ],
+    "description": "Максимальное количество повторных попыток"
+  },
+  "FallbackAction Setting": {
+    "prefix": "fallbackaction",
+    "body": [
+      "<FallbackAction>$1</FallbackAction>"
+    ],
+    "description": "Действие при исчерпании попыток"
+  },
+  "Validation Section": {
+    "prefix": "validation",
+    "body": [
+      "<Validation>",
+      "\t<RequiredFields>",
+      "\t\t<Field>$1</Field>",
+      "\t\t$2",
+      "\t</RequiredFields>",
+      "\t<FormatRules>",
+      "\t\t<Rule field=\"$3\">$4</Rule>",
+      "\t\t$5",
+      "\t</FormatRules>",
+      "\t$6",
+      "</Validation>"
+    ],
+    "description": "Правила валидации данных"
+  },
+  "RequiredFields Section": {
+    "prefix": "requiredfields",
+    "body": [
+      "<RequiredFields>",
+      "\t<Field>$1</Field>",
+      "\t$2",
+      "</RequiredFields>"
+    ],
+    "description": "Список обязательных полей"
+  },
+  "Field Item": {
+    "prefix": "field",
+    "body": [
+      "<Field>$1</Field>"
+    ],
+    "description": "Отдельное обязательное поле"
+  },
+  "FormatRules Section": {
+    "prefix": "formatrules",
+    "body": [
+      "<FormatRules>",
+      "\t<Rule field=\"$1\">$2</Rule>",
+      "\t$3",
+      "</FormatRules>"
+    ],
+    "description": "Правила форматирования полей"
+  },
+  "Rule Item": {
+    "prefix": "rule",
+    "body": [
+      "<Rule field=\"$1\">$2</Rule>"
+    ],
+    "description": "Правило форматирования для поля"
+  },
+  "Logging Section": {
+    "prefix": "logging",
+    "body": [
+      "<Logging>",
+      "\t<Level>$1</Level>",
+      "\t<IncludeContext>$2</IncludeContext>",
+      "\t<SensitiveFields>",
+      "\t\t<Field>$3</Field>",
+      "\t\t$4",
+      "\t</SensitiveFields>",
+      "\t$5",
+      "</Logging>"
+    ],
+    "description": "Настройки логирования"
+  },
+  "LogLevel Setting": {
+    "prefix": "loglevel",
+    "body": [
+      "<Level>$1</Level>"
+    ],
+    "description": "Уровень логирования (debug/info/warn/error)"
+  },
+  "IncludeContext Setting": {
+    "prefix": "includecontext",
+    "body": [
+      "<IncludeContext>$1</IncludeContext>"
+    ],
+    "description": "Включить контекст в логи"
+  },
+  "SensitiveFields Section": {
+    "prefix": "sensitivefields",
+    "body": [
+      "<SensitiveFields>",
+      "\t<Field>$1</Field>",
+      "\t$2",
+      "</SensitiveFields>"
+    ],
+    "description": "Список чувствительных полей"
+  },
+  "Security Section": {
+    "prefix": "security",
+    "body": [
+      "<Security>",
+      "\t<Authentication>",
+      "\t\t<Type>$1</Type>",
+      "\t\t<Expiration>$2</Expiration>",
+      "\t</Authentication>",
+      "\t<RateLimit>",
+      "\t\t<Requests>$3</Requests>",
+      "\t\t<Period>$4</Period>",
+      "\t</RateLimit>",
+      "\t$5",
+      "</Security>"
+    ],
+    "description": "Настройки безопасности"
+  },
+  "Authentication Section": {
+    "prefix": "authentication",
+    "body": [
+      "<Authentication>",
+      "\t<Type>$1</Type>",
+      "\t<Expiration>$2</Expiration>",
+      "\t$3",
+      "</Authentication>"
+    ],
+    "description": "Настройки аутентификации"
+  },
+  "AuthType Setting": {
+    "prefix": "authtype",
+    "body": [
+      "<Type>$1</Type>"
+    ],
+    "description": "Тип аутентификации (jwt/basic/oauth)"
+  },
+  "Expiration Setting": {
+    "prefix": "expiration",
+    "body": [
+      "<Expiration>$1</Expiration>"
+    ],
+    "description": "Время жизни токена в секундах"
+  },
+  "RateLimit Section": {
+    "prefix": "ratelimit",
+    "body": [
+      "<RateLimit>",
+      "\t<Requests>$1</Requests>",
+      "\t<Period>$2</Period>",
+      "\t$3",
+      "</RateLimit>"
+    ],
+    "description": "Ограничения по количеству запросов"
+  },
+  "Requests Setting": {
+    "prefix": "requests",
+    "body": [
+      "<Requests>$1</Requests>"
+    ],
+    "description": "Максимальное количество запросов"
+  },
+  "Period Setting": {
+    "prefix": "period",
+    "body": [
+      "<Period>$1</Period>"
+    ],
+    "description": "Период ограничения в секундах"
+  },
+  "Integrations Section": {
+    "prefix": "integrations",
+    "body": [
+      "<Integrations>",
+      "\t<Service name=\"$1\">",
+      "\t\t<Provider>$2</Provider>",
+      "\t\t<Config>",
+      "\t\t\t<Host>$3</Host>",
+      "\t\t\t<Port>$4</Port>",
+      "\t\t\t$5",
+      "\t\t</Config>",
+      "\t\t$6",
+      "\t</Service>",
+      "\t$7",
+      "</Integrations>"
+    ],
+    "description": "Настройки интеграций с внешними сервисами"
+  },
+  "Service Section": {
+    "prefix": "service",
+    "body": [
+      "<Service name=\"$1\">",
+      "\t<Provider>$2</Provider>",
+      "\t<Config>",
+      "\t\t<Host>$3</Host>",
+      "\t\t<Port>$4</Port>",
+      "\t\t$5",
+      "\t</Config>",
+      "\t$6",
+      "</Service>"
+    ],
+    "description": "Конфигурация внешнего сервиса"
+  },
+  "Provider Setting": {
+    "prefix": "provider",
+    "body": [
+      "<Provider>$1</Provider>"
+    ],
+    "description": "Провайдер сервиса"
+  },
+  "Config Section": {
+    "prefix": "config",
+    "body": [
+      "<Config>",
+      "\t<Host>$1</Host>",
+      "\t<Port>$2</Port>",
+      "\t$3",
+      "</Config>"
+    ],
+    "description": "Конфигурация сервиса"
+  },
+  "Host Setting": {
+    "prefix": "host",
+    "body": [
+      "<Host>$1</Host>"
+    ],
+    "description": "Хост сервиса"
+  },
+  "Port Setting": {
+    "prefix": "port",
+    "body": [
+      "<Port>$1</Port>"
+    ],
+    "description": "Порт сервиса"
+  },
+  "Metrics Section": {
+    "prefix": "metrics",
+    "body": [
+      "<Metrics>",
+      "\t<Track>",
+      "\t\t<Metric>$1</Metric>",
+      "\t\t$2",
+      "\t</Track>",
+      "\t<Thresholds>",
+      "\t\t<Threshold metric=\"$3\">$4</Threshold>",
+      "\t\t$5",
+      "\t</Thresholds>",
+      "\t$6",
+      "</Metrics>"
+    ],
+    "description": "Настройки метрик и мониторинга"
+  },
+  "Track Section": {
+    "prefix": "track",
+    "body": [
+      "<Track>",
+      "\t<Metric>$1</Metric>",
+      "\t$2",
+      "</Track>"
+    ],
+    "description": "Список отслеживаемых метрик"
+  },
+  "Metric Item": {
+    "prefix": "metric",
+    "body": [
+      "<Metric>$1</Metric>"
+    ],
+    "description": "Отдельная метрика для отслеживания"
+  },
+  "Thresholds Section": {
+    "prefix": "thresholds",
+    "body": [
+      "<Thresholds>",
+      "\t<Threshold metric=\"$1\">$2</Threshold>",
+      "\t$3",
+      "</Thresholds>"
+    ],
+    "description": "Пороговые значения для метрик"
+  },
+  "Threshold Item": {
+    "prefix": "threshold",
+    "body": [
+      "<Threshold metric=\"$1\">$2</Threshold>"
+    ],
+    "description": "Пороговое значение для метрики"
+  },
+  "Versioning Section": {
+    "prefix": "versioning",
+    "body": [
+      "<Versioning>",
+      "\t<Current>$1</Current>",
+      "\t<Deprecated>$2</Deprecated>",
+      "\t<MigrationGuide>$3</MigrationGuide>",
+      "\t$4",
+      "</Versioning>"
+    ],
+    "description": "Информация о версионировании"
+  },
+  "CurrentVersion Setting": {
+    "prefix": "currentversion",
+    "body": [
+      "<Current>$1</Current>"
+    ],
+    "description": "Текущая версия"
+  },
+  "Deprecated Setting": {
+    "prefix": "deprecated",
+    "body": [
+      "<Deprecated>$1</Deprecated>"
+    ],
+    "description": "Флаг устаревания"
+  },
+  "MigrationGuide Setting": {
+    "prefix": "migrationguide",
+    "body": [
+      "<MigrationGuide>$1</MigrationGuide>"
+    ],
+    "description": "Ссылка на руководство по миграции"
+  }
+} 

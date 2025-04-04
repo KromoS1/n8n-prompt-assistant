@@ -1,0 +1,95 @@
+{
+  "name": "n8n-prompt-assistant",
+  "displayName": "N8N Prompt Assistant",
+  "description": "Расширение для VSCode и Cursor, помогающее писать промпты для ИИ-агентов в сервисе n8n",
+  "version": "1.0.0",
+  "author": "Roman Shaulinski",
+  "publisher": "RomanKromoS188",
+  "engines": {
+    "vscode": "^1.85.0",
+    "cursor": "^1.0.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets",
+    "Other"
+  ],
+  "keywords": [
+    "n8n",
+    "prompt",
+    "ai",
+    "assistant",
+    "xml",
+    "snippets"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KromoS1/n8n-prompt-assistant.git"
+  },
+  "bugs": {
+    "url": "https://github.com/KromoS1/n8n-prompt-assistant/issues"
+  },
+  "homepage": "https://github.com/KromoS1/n8n-prompt-assistant#readme",
+  "license": "MIT",
+  "activationEvents": [
+    "onLanguage:xml",
+    "onLanguage:n8nprompt"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "n8nprompt",
+        "aliases": [
+          "N8N Prompt",
+          "n8nprompt"
+        ],
+        "extensions": [
+          ".prompt.xml",
+          ".n8n"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "n8nprompt",
+        "scopeName": "text.xml.n8n",
+        "path": "./syntax/n8n-prompt.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "n8nprompt",
+        "path": "./snippets/n8n-prompts.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "n8n-prompt-assistant.formatDocument",
+        "title": "Format N8N Prompt Document"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "^8.2.2",
+    "@types/node": "^20.10.5",
+    "eslint": "^8.56.0",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "glob": "^7.1.7",
+    "mocha": "^8.4.0",
+    "typescript": "^5.3.3",
+    "vscode-test": "^1.5.2"
+  }
+} 
