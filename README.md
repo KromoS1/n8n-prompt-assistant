@@ -1,162 +1,162 @@
 # N8N Prompt Assistant
 
-Расширение для VSCode и Cursor, помогающее писать промпты для ИИ-агентов в сервисе n8n.
+VSCode and Cursor extension that helps write prompts for AI agents in the n8n service.
 
-## Возможности
+## Features
 
-- **Поддержка файлов**: `.prompt.xml`, `.n8n`
-- **Сниппеты**: Готовые шаблоны для создания промптов и агентов
-- **Автодополнение**: Подсказки тегов и атрибутов при вводе
-- **Подсветка синтаксиса**: Улучшенная читаемость XML-структуры
-- **Форматирование**: Автоматическое форматирование XML-документов
+- **File Support**: `.prompt.xml`, `.n8n`
+- **Snippets**: Ready-made templates for creating prompts and agents
+- **Autocompletion**: Tag and attribute hints while typing
+- **Syntax Highlighting**: Improved readability of XML structure
+- **Formatting**: Automatic XML document formatting
 
-## Использование
+## Usage
 
-### Создание нового файла
+### Creating a New File
 
-1. Создайте новый файл с расширением `.prompt.xml` или `.n8n`
-2. Начните вводить теги или используйте сниппеты
+1. Create a new file with extension `.prompt.xml` or `.n8n`
+2. Start typing tags or use snippets
 
-### Сниппеты
+### Snippets
 
-Доступные сниппеты:
+Available snippets:
 
-#### Основные шаблоны
-- `agent` - Базовый шаблон агента
-- `agentfull` - Полный шаблон агента
-- `xml` - XML декларация (опционально)
+#### Basic Templates
+- `agent` - Basic agent template
+- `agentfull` - Full agent template
+- `xml` - XML declaration (optional)
 
-#### Секции агента
-- `agentinstructions` - Корневой элемент для инструкций агента
-- `role` - Секция роли агента
-- `name` - Имя агента
-- `description` - Описание агента
-- `currentdate` - Текущая дата с переменной n8n
-- `goal` - Секция целей агента
-- `primary` - Основная цель
-- `secondary` - Вторичная цель
-- `instructions` - Секция инструкций
-- `instruction` - Отдельная инструкция
-- `tools` - Секция инструментов
-- `tool` - Отдельный инструмент
-- `constraints` - Секция ограничений
-- `constraint` - Отдельное ограничение
+#### Agent Sections
+- `agentinstructions` - Root element for agent instructions
+- `role` - Agent role section
+- `name` - Agent name
+- `description` - Agent description
+- `currentdate` - Current date with n8n variable
+- `goal` - Agent goals section
+- `primary` - Primary goal
+- `secondary` - Secondary goal
+- `instructions` - Instructions section
+- `instruction` - Individual instruction
+- `tools` - Tools section
+- `tool` - Individual tool
+- `constraints` - Constraints section
+- `constraint` - Individual constraint
 
-#### Контекст выполнения
-- `executioncontext` - Контекст выполнения агента
-- `environment` - Окружение выполнения (production/staging/development)
-- `timezone` - Часовой пояс для выполнения задач
-- `language` - Язык для обработки задач
+#### Execution Context
+- `executioncontext` - Agent execution context
+- `environment` - Execution environment (production/staging/development)
+- `timezone` - Timezone for task execution
+- `language` - Language for task processing
 
-#### Обработка ошибок
-- `errorhandling` - Настройки обработки ошибок
-- `retrystrategy` - Стратегия повторных попыток (exponential/linear/fixed)
-- `maxretries` - Максимальное количество повторных попыток
-- `fallbackaction` - Действие при исчерпании попыток
+#### Error Handling
+- `errorhandling` - Error handling settings
+- `retrystrategy` - Retry strategy (exponential/linear/fixed)
+- `maxretries` - Maximum number of retries
+- `fallbackaction` - Action when retries are exhausted
 
-#### Валидация
-- `validation` - Правила валидации данных
-- `requiredfields` - Список обязательных полей
-- `field` - Отдельное обязательное поле
-- `formatrules` - Правила форматирования полей
-- `rule` - Правило форматирования для поля
+#### Validation
+- `validation` - Data validation rules
+- `requiredfields` - List of required fields
+- `field` - Individual required field
+- `formatrules` - Field formatting rules
+- `rule` - Formatting rule for field
 
-#### Логирование
-- `logging` - Настройки логирования
-- `loglevel` - Уровень логирования (debug/info/warn/error)
-- `includecontext` - Включить контекст в логи
-- `sensitivefields` - Список чувствительных полей
+#### Logging
+- `logging` - Logging settings
+- `loglevel` - Logging level (debug/info/warn/error)
+- `includecontext` - Include context in logs
+- `sensitivefields` - List of sensitive fields
 
-#### Безопасность
-- `security` - Настройки безопасности
-- `authentication` - Настройки аутентификации
-- `authtype` - Тип аутентификации (jwt/basic/oauth)
-- `expiration` - Время жизни токена в секундах
-- `ratelimit` - Ограничения по количеству запросов
-- `requests` - Максимальное количество запросов
-- `period` - Период ограничения в секундах
+#### Security
+- `security` - Security settings
+- `authentication` - Authentication settings
+- `authtype` - Authentication type (jwt/basic/oauth)
+- `expiration` - Token lifetime in seconds
+- `ratelimit` - Request rate limits
+- `requests` - Maximum number of requests
+- `period` - Limit period in seconds
 
-#### Интеграции
-- `integrations` - Настройки интеграций с внешними сервисами
-- `service` - Конфигурация внешнего сервиса
-- `provider` - Провайдер сервиса
-- `config` - Конфигурация сервиса
-- `host` - Хост сервиса
-- `port` - Порт сервиса
+#### Integrations
+- `integrations` - External service integration settings
+- `service` - External service configuration
+- `provider` - Service provider
+- `config` - Service configuration
+- `host` - Service host
+- `port` - Service port
 
-#### Метрики
-- `metrics` - Настройки метрик и мониторинга
-- `track` - Список отслеживаемых метрик
-- `metric` - Отдельная метрика для отслеживания
-- `thresholds` - Пороговые значения для метрик
-- `threshold` - Пороговое значение для метрики
+#### Metrics
+- `metrics` - Metrics and monitoring settings
+- `track` - List of tracked metrics
+- `metric` - Individual metric to track
+- `thresholds` - Metric thresholds
+- `threshold` - Threshold for metric
 
-#### Версионирование
-- `versioning` - Информация о версионировании
-- `currentversion` - Текущая версия
-- `deprecated` - Флаг устаревания
-- `migrationguide` - Ссылка на руководство по миграции
+#### Versioning
+- `versioning` - Versioning information
+- `currentversion` - Current version
+- `deprecated` - Deprecation flag
+- `migrationguide` - Link to migration guide
 
-### Автодополнение
+### Autocompletion
 
-При вводе `<` будут предложены доступные теги, сгруппированные по категориям:
-- Основные теги агента
-- Контекст выполнения
-- Обработка ошибок
-- Валидация
-- Логирование
-- Безопасность
-- Интеграции
-- Метрики
-- Версионирование
+When typing `<`, available tags will be suggested, grouped by categories:
+- Basic agent tags
+- Execution context
+- Error handling
+- Validation
+- Logging
+- Security
+- Integrations
+- Metrics
+- Versioning
 
-Каждый тег имеет подробное описание на русском языке.
+Each tag has a detailed description in English.
 
-### Форматирование
+### Formatting
 
-Для форматирования документа используйте команду "Format Document" (Shift+Alt+F).
+Use the "Format Document" command (Shift+Alt+F) to format the document.
 
-## Пример использования
+## Usage Example
 
-### Базовый шаблон агента
+### Basic Agent Template
 
 ```xml
 <Agentinstructions>
     <Role>
-        <Name>Ассистент по работе с данными</Name>
-        <Description>Ассистент, который помогает анализировать и обрабатывать данные</Description>
+        <Name>Data Processing Assistant</Name>
+        <Description>Assistant that helps analyze and process data</Description>
         <currentDate>{{$now}}</currentDate>
     </Role>
     <Goal>
-        <Primary>Анализировать данные и предоставлять полезные выводы</Primary>
+        <Primary>Analyze data and provide useful insights</Primary>
     </Goal>
     <Instructions>
-        <Instruction>Анализируй данные внимательно и находи закономерности</Instruction>
+        <Instruction>Carefully analyze data and find patterns</Instruction>
     </Instructions>
 </Agentinstructions>
 ```
 
-### Расширенный шаблон агента с дополнительными секциями
+### Extended Agent Template with Additional Sections
 
 ```xml
 <Agentinstructions>
     <Role>
-        <Name>Ассистент по работе с данными</Name>
-        <Description>Ассистент, который помогает анализировать и обрабатывать данные</Description>
+        <Name>Data Processing Assistant</Name>
+        <Description>Assistant that helps analyze and process data</Description>
         <currentDate>{{$now}}</currentDate>
     </Role>
     <Goal>
-        <Primary>Анализировать данные и предоставлять полезные выводы</Primary>
-        <Secondary>Визуализировать данные в понятном формате</Secondary>
+        <Primary>Analyze data and provide useful insights</Primary>
+        <Secondary>Visualize data in a clear format</Secondary>
     </Goal>
     <Instructions>
-        <Instruction>Анализируй данные внимательно и находи закономерности</Instruction>
-        <Instruction>Предоставляй выводы в структурированном виде</Instruction>
+        <Instruction>Carefully analyze data and find patterns</Instruction>
+        <Instruction>Provide insights in a structured format</Instruction>
     </Instructions>
     <ExecutionContext>
         <Environment>production</Environment>
         <Timezone>UTC</Timezone>
-        <Language>ru</Language>
+        <Language>en</Language>
     </ExecutionContext>
     <ErrorHandling>
         <RetryStrategy>exponential</RetryStrategy>
@@ -215,10 +215,10 @@
 </Agentinstructions>
 ```
 
-## Лицензия
+## License
 
 MIT
 
-## Поддержка
+## Support
 
-Если у вас возникли проблемы или есть предложения по улучшению, создайте issue в репозитории проекта. 
+If you encounter any issues or have suggestions for improvement, please create an issue in the project repository. 
