@@ -25,6 +25,8 @@ Available snippets:
 - `agent` - Basic agent template
 - `agentfull` - Full agent template
 - `xml` - XML declaration (optional)
+- `database` - Database schema template
+- `example` - Interaction example template
 
 #### Agent Sections
 - `agentinstructions` - Root element for agent instructions
@@ -41,6 +43,27 @@ Available snippets:
 - `tool` - Individual tool
 - `constraints` - Constraints section
 - `constraint` - Individual constraint
+
+#### Database Schema
+- `database` - Root element for database configuration
+- `table` - Table description
+- `columns` - Table columns section
+- `column` - Individual column description
+- `type` - Column data type
+- `constraints` - Column constraints
+- `primarykey` - Primary key configuration
+- `foreignkey` - Foreign key configuration
+- `index` - Index configuration
+- `relations` - Table relations section
+- `relation` - Individual relation description
+
+#### Examples
+- `examples` - Section with interaction examples
+- `example` - Individual interaction example
+- `userinput` - User input in the example
+- `agentoutput` - Agent response in the example
+- `context` - Additional context for the example
+- `notes` - Notes about the example
 
 #### Execution Context
 - `executioncontext` - Agent execution context
@@ -101,6 +124,8 @@ Available snippets:
 
 When typing `<`, available tags will be suggested, grouped by categories:
 - Basic agent tags
+- Database schema
+- Examples
 - Execution context
 - Error handling
 - Validation
@@ -134,6 +159,52 @@ Use the "Format Document" command (Shift+Alt+F) to format the document.
         <Instruction>Carefully analyze data and find patterns</Instruction>
     </Instructions>
 </Agentinstructions>
+```
+
+### Database Schema Example
+
+```xml
+<Database>
+    <Table>
+        <Name>users</Name>
+        <Description>User accounts and profiles</Description>
+        <Columns>
+            <Column>
+                <Name>id</Name>
+                <Type>INTEGER</Type>
+                <Constraints>
+                    <PrimaryKey>true</PrimaryKey>
+                </Constraints>
+            </Column>
+            <Column>
+                <Name>email</Name>
+                <Type>VARCHAR(255)</Type>
+                <Constraints>
+                    <Index>true</Index>
+                </Constraints>
+            </Column>
+        </Columns>
+        <Relations>
+            <Relation>
+                <Type>hasMany</Type>
+                <Target>orders</Target>
+            </Relation>
+        </Relations>
+    </Table>
+</Database>
+```
+
+### Interaction Example
+
+```xml
+<Examples>
+    <Example>
+        <Context>User needs help with data analysis</Context>
+        <UserInput>How can I analyze sales data from the last quarter?</UserInput>
+        <AgentOutput>I'll help you analyze the sales data. First, let's load the data using pandas...</AgentOutput>
+        <Notes>This example demonstrates basic data analysis workflow</Notes>
+    </Example>
+</Examples>
 ```
 
 ### Extended Agent Template with Additional Sections

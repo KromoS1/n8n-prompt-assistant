@@ -1,21 +1,271 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <xs:element name="prompt">
+    <!-- Базовые типы -->
+    <xs:complexType name="NameType">
+        <xs:sequence>
+            <xs:element name="Name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="DescriptionType">
+        <xs:sequence>
+            <xs:element name="Description" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Элемент инструкций агента -->
+    <xs:element name="Agentinstructions">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="system" type="xs:string"/>
-                <xs:element name="user" type="xs:string"/>
-                <xs:element name="assistant" type="xs:string"/>
-                <xs:element name="example" minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="Role">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="user" type="xs:string"/>
-                            <xs:element name="assistant" type="xs:string"/>
+                            <xs:element name="Name" type="xs:string"/>
+                            <xs:element name="Description" type="xs:string"/>
+                            <xs:element name="currentDate" type="xs:string" minOccurs="0"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
-                <xs:element name="context" type="xs:string" minOccurs="0"/>
-                <xs:element name="rules" type="xs:string" minOccurs="0"/>
+                <xs:element name="Goal">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Primary" type="xs:string"/>
+                            <xs:element name="Secondary" type="xs:string" minOccurs="0"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Instructions">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Instruction" type="xs:string" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Tools" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Tool" type="xs:string" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Constraints" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Constraint" type="xs:string" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="ExecutionContext" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Environment" type="xs:string"/>
+                            <xs:element name="Timezone" type="xs:string"/>
+                            <xs:element name="Language" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="ErrorHandling" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="RetryStrategy" type="xs:string"/>
+                            <xs:element name="MaxRetries" type="xs:integer"/>
+                            <xs:element name="FallbackAction" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Validation" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="RequiredFields" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Field" type="xs:string" maxOccurs="unbounded"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="FormatRules" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Rule" maxOccurs="unbounded">
+                                            <xs:complexType>
+                                                <xs:attribute name="field" type="xs:string" use="required"/>
+                                                <xs:simpleContent>
+                                                    <xs:extension base="xs:string"/>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Logging" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Level" type="xs:string"/>
+                            <xs:element name="IncludeContext" type="xs:boolean"/>
+                            <xs:element name="SensitiveFields" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Field" type="xs:string" maxOccurs="unbounded"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Security" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Authentication" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Type" type="xs:string"/>
+                                        <xs:element name="Expiration" type="xs:integer"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="RateLimit" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Requests" type="xs:integer"/>
+                                        <xs:element name="Period" type="xs:integer"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Integrations" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Service" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Provider" type="xs:string"/>
+                                        <xs:element name="Config">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="Host" type="xs:string"/>
+                                                    <xs:element name="Port" type="xs:integer"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="name" type="xs:string" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Metrics" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Track" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Metric" type="xs:string" maxOccurs="unbounded"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="Thresholds" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Threshold" maxOccurs="unbounded">
+                                            <xs:complexType>
+                                                <xs:attribute name="metric" type="xs:string" use="required"/>
+                                                <xs:simpleContent>
+                                                    <xs:extension base="xs:integer"/>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Versioning" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Current" type="xs:string"/>
+                            <xs:element name="Deprecated" type="xs:boolean"/>
+                            <xs:element name="MigrationGuide" type="xs:string" minOccurs="0"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <!-- Элемент для описания базы данных -->
+    <xs:element name="Database">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Table" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Name" type="xs:string"/>
+                            <xs:element name="Description" type="xs:string"/>
+                            <xs:element name="Columns">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Column" maxOccurs="unbounded">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="Name" type="xs:string"/>
+                                                    <xs:element name="Type" type="xs:string"/>
+                                                    <xs:element name="Constraints" minOccurs="0">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="PrimaryKey" type="xs:boolean" minOccurs="0"/>
+                                                                <xs:element name="ForeignKey" type="xs:string" minOccurs="0"/>
+                                                                <xs:element name="Index" type="xs:boolean" minOccurs="0"/>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="Relations" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Relation" maxOccurs="unbounded">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="Type" type="xs:string"/>
+                                                    <xs:element name="Target" type="xs:string"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <!-- Элемент для примеров взаимодействия -->
+    <xs:element name="Examples">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Example" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Context" type="xs:string" minOccurs="0"/>
+                            <xs:element name="UserInput" type="xs:string"/>
+                            <xs:element name="AgentOutput" type="xs:string"/>
+                            <xs:element name="Notes" type="xs:string" minOccurs="0"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

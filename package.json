@@ -1,8 +1,8 @@
 {
   "name": "n8n-prompt-assistant",
-  "displayName": "N8N Prompt Assistant",
+  "displayName": "n8n Prompt Assistant",
   "description": "Расширение для VSCode и Cursor, помогающее писать промпты для ИИ-агентов в сервисе n8n",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Roman Shaulinski",
   "publisher": "RomanKromoS188",
   "engines": {
@@ -41,7 +41,7 @@
       {
         "id": "n8nprompt",
         "aliases": [
-          "N8N Prompt",
+          "n8n Prompt",
           "n8nprompt"
         ],
         "extensions": [
@@ -67,7 +67,7 @@
     "commands": [
       {
         "command": "n8n-prompt-assistant.formatDocument",
-        "title": "Format N8N Prompt Document"
+        "title": "Format n8n Prompt Document"
       }
     ]
   },

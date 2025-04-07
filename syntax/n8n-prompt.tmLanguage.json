@@ -1,5 +1,5 @@
 {
-  "name": "N8N Prompt",
+  "name": "n8n Prompt",
   "scopeName": "text.xml.n8n",
   "fileTypes": [".prompt.xml", ".n8n"],
   "patterns": [

@@ -98,118 +98,147 @@ export function activate(context: vscode.ExtensionContext) {
 
 function getTagCompletionItems(): vscode.CompletionItem[] {
     return [
-        createCompletionItem('prompt', 'Корневой элемент для промпта', vscode.CompletionItemKind.Class),
-        createCompletionItem('system', 'Системная секция промпта', vscode.CompletionItemKind.Property),
-        createCompletionItem('user', 'Пользовательская секция промпта', vscode.CompletionItemKind.Property),
-        createCompletionItem('assistant', 'Секция ответа ассистента', vscode.CompletionItemKind.Property),
-        createCompletionItem('example', 'Секция примера взаимодействия', vscode.CompletionItemKind.Property),
-        createCompletionItem('context', 'Секция дополнительного контекста', vscode.CompletionItemKind.Property)
+        createCompletionItem('prompt', 'Root element for prompt', vscode.CompletionItemKind.Class),
+        createCompletionItem('system', 'System section of prompt', vscode.CompletionItemKind.Property),
+        createCompletionItem('user', 'User section of prompt', vscode.CompletionItemKind.Property),
+        createCompletionItem('assistant', 'Assistant response section', vscode.CompletionItemKind.Property),
+        createCompletionItem('example', 'Interaction example section', vscode.CompletionItemKind.Property),
+        createCompletionItem('context', 'Additional context section', vscode.CompletionItemKind.Property)
     ];
 }
 
 function getN8NTagCompletionItems(): vscode.CompletionItem[] {
     const items: vscode.CompletionItem[] = [];
 
-    // Основные теги агента
+    // Basic agent tags
     const agentTags = [
-        { label: 'Agentinstructions', detail: 'Корневой элемент для инструкций агента' },
-        { label: 'Role', detail: 'Секция роли агента' },
-        { label: 'Name', detail: 'Имя агента' },
-        { label: 'Description', detail: 'Описание агента' },
-        { label: 'currentDate', detail: 'Текущая дата с переменной n8n' },
-        { label: 'Goal', detail: 'Секция целей агента' },
-        { label: 'Primary', detail: 'Основная цель агента' },
-        { label: 'Secondary', detail: 'Вторичная цель агента' },
-        { label: 'Instructions', detail: 'Секция инструкций агента' },
-        { label: 'Instruction', detail: 'Отдельная инструкция для агента' },
-        { label: 'Tools', detail: 'Секция инструментов агента' },
-        { label: 'Tool', detail: 'Отдельный инструмент для агента' },
-        { label: 'Constraints', detail: 'Секция ограничений агента' },
-        { label: 'Constraint', detail: 'Отдельное ограничение для агента' }
+        { label: 'Agentinstructions', detail: 'Root element for agent instructions' },
+        { label: 'Role', detail: 'Agent role section' },
+        { label: 'Name', detail: 'Agent name' },
+        { label: 'Description', detail: 'Agent description' },
+        { label: 'currentDate', detail: 'Current date with n8n variable' },
+        { label: 'Goal', detail: 'Agent goals section' },
+        { label: 'Primary', detail: 'Primary agent goal' },
+        { label: 'Secondary', detail: 'Secondary agent goal' },
+        { label: 'Instructions', detail: 'Agent instructions section' },
+        { label: 'Instruction', detail: 'Individual instruction for agent' },
+        { label: 'Tools', detail: 'Agent tools section' },
+        { label: 'Tool', detail: 'Individual tool for agent' },
+        { label: 'Constraints', detail: 'Agent constraints section' },
+        { label: 'Constraint', detail: 'Individual constraint for agent' }
     ];
 
-    // Теги для контекста выполнения
+    // Execution context tags
     const executionContextTags = [
-        { label: 'ExecutionContext', detail: 'Контекст выполнения агента' },
-        { label: 'Environment', detail: 'Окружение выполнения (production/staging/development)' },
-        { label: 'Timezone', detail: 'Часовой пояс для выполнения задач' },
-        { label: 'Language', detail: 'Язык для обработки задач' }
+        { label: 'ExecutionContext', detail: 'Agent execution context' },
+        { label: 'Environment', detail: 'Execution environment (production/staging/development)' },
+        { label: 'Timezone', detail: 'Timezone for task execution' },
+        { label: 'Language', detail: 'Language for task processing' }
     ];
 
-    // Теги для обработки ошибок
+    // Error handling tags
     const errorHandlingTags = [
-        { label: 'ErrorHandling', detail: 'Настройки обработки ошибок' },
-        { label: 'RetryStrategy', detail: 'Стратегия повторных попыток (exponential/linear/fixed)' },
-        { label: 'MaxRetries', detail: 'Максимальное количество повторных попыток' },
-        { label: 'FallbackAction', detail: 'Действие при исчерпании попыток' }
+        { label: 'ErrorHandling', detail: 'Error handling settings' },
+        { label: 'RetryStrategy', detail: 'Retry strategy (exponential/linear/fixed)' },
+        { label: 'MaxRetries', detail: 'Maximum number of retries' },
+        { label: 'FallbackAction', detail: 'Action when retries are exhausted' }
     ];
 
-    // Теги для валидации
+    // Validation tags
     const validationTags = [
-        { label: 'Validation', detail: 'Правила валидации данных' },
-        { label: 'RequiredFields', detail: 'Список обязательных полей' },
-        { label: 'Field', detail: 'Отдельное обязательное поле' },
-        { label: 'FormatRules', detail: 'Правила форматирования полей' },
-        { label: 'Rule', detail: 'Правило форматирования для поля' }
+        { label: 'Validation', detail: 'Data validation rules' },
+        { label: 'RequiredFields', detail: 'List of required fields' },
+        { label: 'Field', detail: 'Individual required field' },
+        { label: 'FormatRules', detail: 'Field formatting rules' },
+        { label: 'Rule', detail: 'Formatting rule for field' }
     ];
 
-    // Теги для логирования
+    // Logging tags
     const loggingTags = [
-        { label: 'Logging', detail: 'Настройки логирования' },
-        { label: 'Level', detail: 'Уровень логирования (debug/info/warn/error)' },
-        { label: 'IncludeContext', detail: 'Включить контекст в логи' },
-        { label: 'SensitiveFields', detail: 'Список чувствительных полей' }
+        { label: 'Logging', detail: 'Logging settings' },
+        { label: 'Level', detail: 'Logging level (debug/info/warn/error)' },
+        { label: 'IncludeContext', detail: 'Include context in logs' },
+        { label: 'SensitiveFields', detail: 'List of sensitive fields' }
     ];
 
-    // Теги для безопасности
+    // Security tags
     const securityTags = [
-        { label: 'Security', detail: 'Настройки безопасности' },
-        { label: 'Authentication', detail: 'Настройки аутентификации' },
-        { label: 'Type', detail: 'Тип аутентификации (jwt/basic/oauth)' },
-        { label: 'Expiration', detail: 'Время жизни токена в секундах' },
-        { label: 'RateLimit', detail: 'Ограничения по количеству запросов' },
-        { label: 'Requests', detail: 'Максимальное количество запросов' },
-        { label: 'Period', detail: 'Период ограничения в секундах' }
+        { label: 'Security', detail: 'Security settings' },
+        { label: 'Authentication', detail: 'Authentication settings' },
+        { label: 'Type', detail: 'Authentication type (jwt/basic/oauth)' },
+        { label: 'Expiration', detail: 'Token lifetime in seconds' },
+        { label: 'RateLimit', detail: 'Request rate limits' },
+        { label: 'Requests', detail: 'Maximum number of requests' },
+        { label: 'Period', detail: 'Limit period in seconds' }
     ];
 
-    // Теги для интеграций
+    // Integration tags
     const integrationsTags = [
-        { label: 'Integrations', detail: 'Настройки интеграций с внешними сервисами' },
-        { label: 'Service', detail: 'Конфигурация внешнего сервиса' },
-        { label: 'Provider', detail: 'Провайдер сервиса' },
-        { label: 'Config', detail: 'Конфигурация сервиса' },
-        { label: 'Host', detail: 'Хост сервиса' },
-        { label: 'Port', detail: 'Порт сервиса' }
+        { label: 'Integrations', detail: 'External service integration settings' },
+        { label: 'Service', detail: 'External service configuration' },
+        { label: 'Provider', detail: 'Service provider' },
+        { label: 'Config', detail: 'Service configuration' },
+        { label: 'Host', detail: 'Service host' },
+        { label: 'Port', detail: 'Service port' }
     ];
 
-    // Теги для метрик
+    // Metrics tags
     const metricsTags = [
-        { label: 'Metrics', detail: 'Настройки метрик и мониторинга' },
-        { label: 'Track', detail: 'Список отслеживаемых метрик' },
-        { label: 'Metric', detail: 'Отдельная метрика для отслеживания' },
-        { label: 'Thresholds', detail: 'Пороговые значения для метрик' },
-        { label: 'Threshold', detail: 'Пороговое значение для метрики' }
+        { label: 'Metrics', detail: 'Metrics and monitoring settings' },
+        { label: 'Track', detail: 'List of tracked metrics' },
+        { label: 'Metric', detail: 'Individual metric to track' },
+        { label: 'Thresholds', detail: 'Metric thresholds' },
+        { label: 'Threshold', detail: 'Threshold for metric' }
     ];
 
-    // Теги для версионирования
+    // Versioning tags
     const versioningTags = [
-        { label: 'Versioning', detail: 'Информация о версионировании' },
-        { label: 'Current', detail: 'Текущая версия' },
-        { label: 'Deprecated', detail: 'Флаг устаревания' },
-        { label: 'MigrationGuide', detail: 'Ссылка на руководство по миграции' }
+        { label: 'Versioning', detail: 'Versioning information' },
+        { label: 'Current', detail: 'Current version' },
+        { label: 'Deprecated', detail: 'Deprecation flag' },
+        { label: 'MigrationGuide', detail: 'Link to migration guide' }
     ];
 
-    // Добавляем все теги с соответствующими категориями
+    // Database tags
+    const databaseTags = [
+        { label: 'Database', detail: 'Database configuration and schema' },
+        { label: 'Table', detail: 'Database table description' },
+        { label: 'Name', detail: 'Table name' },
+        { label: 'Description', detail: 'Table description' },
+        { label: 'Columns', detail: 'Table columns section' },
+        { label: 'Column', detail: 'Individual column description' },
+        { label: 'Type', detail: 'Column data type' },
+        { label: 'Constraints', detail: 'Column constraints' },
+        { label: 'PrimaryKey', detail: 'Primary key configuration' },
+        { label: 'ForeignKey', detail: 'Foreign key configuration' },
+        { label: 'Index', detail: 'Index configuration' },
+        { label: 'Relations', detail: 'Table relations section' },
+        { label: 'Relation', detail: 'Individual relation description' }
+    ];
+
+    // Example tags
+    const exampleTags = [
+        { label: 'Examples', detail: 'Section with interaction examples' },
+        { label: 'Example', detail: 'Individual interaction example' },
+        { label: 'UserInput', detail: 'User input in the example' },
+        { label: 'AgentOutput', detail: 'Agent response in the example' },
+        { label: 'Context', detail: 'Additional context for the example' },
+        { label: 'Notes', detail: 'Notes about the example' }
+    ];
+
+    // Add all tags with their categories
     const allTags = [
-        { category: 'Основные теги агента', tags: agentTags },
-        { category: 'Контекст выполнения', tags: executionContextTags },
-        { category: 'Обработка ошибок', tags: errorHandlingTags },
-        { category: 'Валидация', tags: validationTags },
-        { category: 'Логирование', tags: loggingTags },
-        { category: 'Безопасность', tags: securityTags },
-        { category: 'Интеграции', tags: integrationsTags },
-        { category: 'Метрики', tags: metricsTags },
-        { category: 'Версионирование', tags: versioningTags }
+        { category: 'Basic agent tags', tags: agentTags },
+        { category: 'Execution context', tags: executionContextTags },
+        { category: 'Error handling', tags: errorHandlingTags },
+        { category: 'Validation', tags: validationTags },
+        { category: 'Logging', tags: loggingTags },
+        { category: 'Security', tags: securityTags },
+        { category: 'Integrations', tags: integrationsTags },
+        { category: 'Metrics', tags: metricsTags },
+        { category: 'Versioning', tags: versioningTags },
+        { category: 'Database', tags: databaseTags },
+        { category: 'Examples', tags: exampleTags }
     ];
 
     allTags.forEach(category => {
@@ -226,8 +255,8 @@ function getN8NTagCompletionItems(): vscode.CompletionItem[] {
 
 function getAttributeCompletionItems(): vscode.CompletionItem[] {
     return [
-        createCompletionItem('version', 'XML версия', vscode.CompletionItemKind.Property),
-        createCompletionItem('encoding', 'XML кодировка', vscode.CompletionItemKind.Property)
+        createCompletionItem('version', 'XML version', vscode.CompletionItemKind.Property),
+        createCompletionItem('encoding', 'XML encoding', vscode.CompletionItemKind.Property)
     ];
 }
 
